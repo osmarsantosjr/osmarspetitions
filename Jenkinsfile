@@ -20,11 +20,11 @@ pipeline {
             }
         }
         
-        stage ('Exec') {
-            steps {
-                sh 'mvn exec:java'
-                }
-        }
+        // stage ('Exec') {
+        //     steps {
+        //         sh 'mvn exec:java'
+        //         }
+        // }
 
         stage('Package') {
             steps {
