@@ -1,4 +1,3 @@
-
 # Petitions Hub (Spring Boot, Java 17)
 
 A minimal Spring Boot web application to create, view, search, and sign petitions. Data is stored in-memory using Java collections (no external database required), making it perfect for demos, prototypes, and lab exercises.
