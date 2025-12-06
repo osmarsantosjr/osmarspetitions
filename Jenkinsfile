@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     stages {
         stage('Get the code from Github') {
             steps {
@@ -11,7 +15,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean:clean'
+                sh 'mvn dependency:copy-dependencies'
+                sh 'mvn compiler:compile'
             }
         }
 
