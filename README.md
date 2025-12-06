@@ -30,27 +30,3 @@ Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
    ```bash
    git clone git@github.com:osmarsantosjr/osmarspetitions.git
    cd osmarspetitions
-
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
-test
