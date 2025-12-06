@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('Get the code from Github') {
             steps {
-                git branch: 'main',
-                    url: 'git@github.com:osmarsantosjr/osmarspetitions.git'
+                git branch: 'main', url: 'https://github.com/osmarsantosjr/osmarspetitions.git'
             }
         }
 
