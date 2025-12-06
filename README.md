@@ -1,4 +1,4 @@
-# Osmar's Petitions App
+# Osmar's Petitions App!
 
 A simple Spring Boot application that allows users to create petitions, sign them, and view all signatures.  
 Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
