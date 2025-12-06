@@ -1,0 +1,14 @@
+<h1 th:text="${petition.title}"></h1>
+<p th:text="${petition.description}"></p>
+
+<h3>Sign the Petition</h3>
+<form th:action="@{/view/{id}/sign(id=${petition.id})}" th:object="${signature}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Name" />
+    <input type="email" th:field="*{email}" placeholder="Email" />
+    <button type="submit">Sign</button>
+</form>
+
+<h3>Signatures</h3>
+<ul>
+    <li th:each="s : ${petition.signatures}" th:text="${s.name} + ' (' + ${s.email} + ')' "></li>
+</ul>

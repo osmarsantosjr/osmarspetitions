@@ -1,0 +1,5 @@
+<ul>
+    <li th:each="r : ${results}">
+        <a th:href="@{/view/{id}(id=${r.id})}" th:text="${r.title}"></a>
+    </li>
+</ul>
