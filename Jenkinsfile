@@ -1,43 +1,32 @@
 pipeline {
     agent any
-    
-    triggers {
-        githubPush()
-    }
 
     stages {
-        stage('GetProject') {
+        stage('Get the code from Github') {
             steps {
-                git branch: 'main', url: 'https://github.com/osmarsantosjr/osmarspetitions.git'
+                git branch: 'main',
+                    url: 'git@github.com:osmarsantosjr/osmarspetitions.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean:clean'
-                sh 'mvn dependency:copy-dependencies'
-                sh 'mvn compiler:compile'
+                sh 'mvn clean compile'
             }
         }
-        
-        // stage ('Exec') {
-        //     steps {
-        //         sh 'mvn exec:java'
-        //         }
-        // }
 
-        stage('Package') {
+        stage('Test') {
             steps {
-                sh 'mvn package'
+                sh 'mvn test'
             }
         }
-
-    }
 
     post {
         success {
-           archiveArtifacts allowEmptyArchive: true, 
-           artifacts: '**/first_maven*.war'
-        }        
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
     }
 }
