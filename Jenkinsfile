@@ -5,6 +5,7 @@ pipeline {
         stage('Get the code from Github') {
             steps {
                 git branch: 'main',
+                    credentialsId: '0077138b-463a-4362-800c-6ad883ebf67d',
                     url: 'git@github.com:osmarsantosjr/osmarspetitions.git'
             }
         }
