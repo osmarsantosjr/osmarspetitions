@@ -26,7 +26,7 @@ pipeline {
 
         stage('Archive Artifact') {
             steps {
-                sh 'mvn package -DskipTests'
+//                 sh 'mvn package -DskipTests'
                 // Archive the generated WAR file for future reference
                 archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
             }
