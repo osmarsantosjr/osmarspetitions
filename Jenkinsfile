@@ -27,7 +27,6 @@ pipeline {
         stage('Package WAR') {
             steps {
                 sh 'mvn -B package'
-//                 sh 'mv target/*.war target/osmarspetitions.war'
                 archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
             }
         }
@@ -42,15 +41,11 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                // Example: copy WAR file to remote Tomcat server via SCP
-                sh '''
-                scp -i /home/jenkins/.ssh/deploy_key \
-                    target/osmarspetitions.war \
-                    ec2-user@56.228.26.152:/opt/tomcat/webapps/
-                '''
+                sh 'cp target/osmarspetitions.war /opt/tomcat/webapps/ROOT.war'
             }
         }
     }
+
 
     post {
         always {
