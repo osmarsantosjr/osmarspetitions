@@ -1,37 +1,32 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven_3.9'   // Name of the Maven installation configured in Jenkins
-        jdk 'JDK17'         // Name of the JDK installation configured in Jenkins
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Get the code from Github') {
             steps {
-                // Clone the repository from GitHub using SSH key
                 git branch: 'main',
-                    url: 'git@github.com:seuusuario/osmarspetitions.git',
-                    credentialsId: 'github-ssh-key'
+                    url: 'git@github.com:osmarsantosjr/osmarspetitions.git'
+                    credentialsId: '0077138b-463a-4362-800c-6ad883ebf67d',
             }
         }
 
         stage('Build') {
             steps {
-                // Compile and package the application, skipping tests
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean:clean'
+                sh 'mvn dependency:copy-dependencies'
+                sh 'mvn compiler:compile'
             }
         }
 
         stage('Test') {
             steps {
-                // Run unit tests
                 sh 'mvn test'
             }
         }
 
         stage('Archive Artifact') {
             steps {
+                sh 'mvn package -DskipTests'
                 // Archive the generated WAR file for future reference
                 archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
             }
