@@ -33,3 +33,4 @@ Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
 test
 test
 test
+test
