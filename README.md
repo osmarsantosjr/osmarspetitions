@@ -32,3 +32,4 @@ Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
    cd osmarspetitionstest
 test
 test
+test
