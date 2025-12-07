@@ -24,13 +24,13 @@ pipeline {
             }
         }
 
-        stage('Archive Artifact') {
-            steps {
-//                 sh 'mvn package -DskipTests'
-                // Archive the generated WAR file for future reference
-                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-            }
-        }
+//         stage('Archive Artifact') {
+//             steps {
+// //                 sh 'mvn package -DskipTests'
+//                 // Archive the generated WAR file for future reference
+//                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+//             }
+//         }
 
         stage('Deploy to Tomcat') {
             steps {
