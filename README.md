@@ -31,3 +31,4 @@ Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
    git clone git@github.com:osmarsantosjr/osmarspetitions.git
    cd osmarspetitionstest
 test
+test
