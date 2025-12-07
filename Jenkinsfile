@@ -24,13 +24,21 @@ pipeline {
             }
         }
 
-//         stage('Archive Artifact') {
-//             steps {
-// //                 sh 'mvn package -DskipTests'
-//                 // Archive the generated WAR file for future reference
-//                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-//             }
-//         }
+        stage('Package WAR') {
+            steps {
+                sh 'mvn -B package'
+                sh 'mv target/*.war target/osmarspetitions.war'
+                archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    input message: 'Deploy to EC2?'
+                }
+            }
+        }
 
         stage('Deploy to Tomcat') {
             steps {
@@ -38,7 +46,7 @@ pipeline {
                 sh '''
                 scp -i /home/jenkins/.ssh/deploy_key \
                     target/osmarspetitions.war \
-                    ec2-user@SEU_SERVIDOR:/opt/tomcat/webapps/
+                    ec2-user@16.171.39.194:/opt/tomcat/webapps/
                 '''
             }
         }
