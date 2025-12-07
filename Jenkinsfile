@@ -6,7 +6,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'git@github.com:osmarsantosjr/osmarspetitions.git',
-                    credentialsId: '0077138b-463a-4362-800c-6ad883ebf67d'
+                    credentialsId: 'github-ssh-key'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
                 sh '''
                 scp -i /home/jenkins/.ssh/deploy_key \
                     target/osmarspetitions.war \
-                    ec2-user@16.171.4.249:/opt/tomcat/webapps/
+                    ec2-user@56.228.26.152:/opt/tomcat/webapps/
                 '''
             }
         }
