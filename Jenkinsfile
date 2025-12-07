@@ -27,7 +27,7 @@ pipeline {
         stage('Package WAR') {
             steps {
                 sh 'mvn -B package'
-                sh 'mv target/*.war target/osmarspetitions.war'
+//                 sh 'mv target/*.war target/osmarspetitions.war'
                 archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
             }
         }
