@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        git 'Git_2.50.1'
-    }
-
-
     stages {
         stage('Get the code from Github') {
             steps {
