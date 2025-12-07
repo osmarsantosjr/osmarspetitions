@@ -1,55 +1,64 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven_3.9'   // Name of the Maven installation configured in Jenkins
+        jdk 'JDK17'         // Name of the JDK installation configured in Jenkins
+    }
+
     stages {
-        stage('Get the code from Github') {
+        stage('Checkout') {
             steps {
+                // Clone the repository from GitHub using SSH key
                 git branch: 'main',
-                    credentialsId: '0077138b-463a-4362-800c-6ad883ebf67d',
-                    url: 'git@github.com:osmarsantosjr/osmarspetitions.git'
+                    url: 'git@github.com:seuusuario/osmarspetitions.git',
+                    credentialsId: 'github-ssh-key'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                // Compile and package the application, skipping tests
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
+                // Run unit tests
                 sh 'mvn test'
             }
         }
 
-        stage('Package and archive') {
+        stage('Archive Artifact') {
             steps {
-                sh 'mvn package -DskipTests'
+                // Archive the generated WAR file for future reference
                 archiveArtifacts artifacts: 'target/osmarspetitions.war', fingerprint: true
             }
         }
 
-        stage('Deploy to Tomcat (manual approval)') {
+        stage('Deploy to Tomcat') {
             steps {
-                script {
-                    timeout(time: 5, unit: 'MINUTES') {
-                        input message: "Do you want to deploy osmarspetitions.war to Tomcat on AWS EC2?"
-                    }
-                    sh '''
-                        scp -o StrictHostKeyChecking=no target/osmarspetitions.war ec2-user@ec2-13-61-27-221.eu-north-1.compute.amazonaws.com:/opt/tomcat/webapps/
-                        ssh ec2-user@ec2-13-61-27-221.eu-north-1.compute.amazonaws.com "sudo systemctl restart tomcat"
-                    '''
-                }
+                // Example: copy WAR file to remote Tomcat server via SCP
+                sh '''
+                scp -i /home/jenkins/.ssh/deploy_key \
+                    target/osmarspetitions.war \
+                    ec2-user@SEU_SERVIDOR:/opt/tomcat/webapps/
+                '''
             }
         }
     }
 
     post {
+        always {
+            // Publish JUnit test reports
+            junit 'target/surefire-reports/*.xml'
+        }
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Build and deployment completed successfully!'
         }
         failure {
-            echo 'Pipeline failed. Please check the logs.'
+            echo 'Build failed. Please check logs.'
         }
     }
 }

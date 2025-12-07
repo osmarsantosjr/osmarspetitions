@@ -13,7 +13,9 @@
     <groupId>com.example</groupId>
     <artifactId>osmarspetitions</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging> <!-- usar JAR para rodar standalone -->
+    <!-- Force output as WAR -->
+    <packaging>war</packaging>
+
 
     <name>osmarspetitions</name>
     <description>Demo project for Spring Boot</description>
@@ -23,7 +25,7 @@
     </properties>
 
     <dependencies>
-        <!-- Web + Tomcat embutido -->
+        <!-- Web + Tomcat  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -64,8 +66,13 @@
         </dependency>
     </dependencies>
 
+
     <build>
+        <!-- Fixed name for the generated artifact -->
+        <finalName>osmarspetitions</finalName>
+
         <plugins>
+            <!-- Spring Boot Maven Plugin (version managed by parent) -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

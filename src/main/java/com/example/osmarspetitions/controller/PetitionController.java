@@ -20,18 +20,21 @@ public class PetitionController {
     @Autowired
     private SignatureRepository signatureRepo;
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("petition", new Petition());
-        return "create";
-    }
-
+    // Exibe lista de petições e o formulário
     @GetMapping("/list")
     public String listPetitions(Model model) {
         model.addAttribute("petitions", petitionRepo.findAll());
-        model.addAttribute("petition", new Petition()); // para o formulário
-        return "list";
+        model.addAttribute("petition", new Petition()); // objeto vazio para o formulário
+        return "list"; // renderiza list.html
     }
+
+    // Cria nova petição (rota /create)
+    @PostMapping("/create")
+    public String createPetition(@ModelAttribute Petition petition) {
+        petitionRepo.save(petition);
+        return "redirect:/list"; // redireciona para a lista após salvar
+    }
+
 
     @GetMapping("/search")
     public String searchForm() {
