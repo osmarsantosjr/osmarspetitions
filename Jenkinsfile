@@ -46,7 +46,7 @@ pipeline {
                 sh '''
                 scp -i /home/jenkins/.ssh/deploy_key \
                     target/osmarspetitions.war \
-                    ec2-user@16.171.39.194:/opt/tomcat/webapps/
+                    ec2-user@16.171.4.249:/opt/tomcat/webapps/
                 '''
             }
         }
