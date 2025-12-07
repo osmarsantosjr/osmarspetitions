@@ -29,4 +29,4 @@ Built with **Spring Boot**, **Thymeleaf**, and an in-memory **H2 database**.
 1. Clone the repository:
    ```bash
    git clone git@github.com:osmarsantosjr/osmarspetitions.git
-   cd osmarspetitions
+   cd osmarspetitionstest
